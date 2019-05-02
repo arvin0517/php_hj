@@ -1,0 +1,48 @@
+ <!-- 5-2 变量输出、赋值和替换 (20:43) start-->
+				<!DOCTYPE html>
+				<html lang="en">
+				<head>
+					<meta charset="utf-8">
+					<title>
+						{block name="title"}
+					       模板学习 ThinkPHP5 index页
+						{/block}
+					</title>
+					<link rel="stylesheet" type="text/css" href="__CSS__/style.css">
+				</head>
+				<body>
+				   <h1>这里是 index.html  这是在 view/index 目录下</h1>         
+                   <div class="wrap">
+                   	  <!-- 头部 -->
+                   	  <div class="header">
+                   	  	 {include file="common/nav" /}
+                   	  </div>
+
+                   	  <!-- 中部 -->
+                   	  <div class="main">
+                   	  	
+                          <!-- 边栏 -->
+                          <div class="sidebar">
+                          	 sidbar
+                          </div>
+
+                          <!-- 内容 -->
+                          <div class="body">
+                          	 {block name="body"}
+
+                          	 {/block}
+                          </div>
+
+                   	  </div>
+
+                   	  <!-- 尾部 -->
+                   	  <div class="footer">
+                          	 {block name="footer"}
+                                  footer
+                          	 {/block}
+
+                   	  </div>
+                   </div>
+				</body>
+				</html>
+<!-- 5-2 变量输出、赋值和替换 (20:43) end-->
