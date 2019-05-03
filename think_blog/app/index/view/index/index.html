@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<title>阿本个人博客</title>
+		<link rel="shortcut icon" href="_IMG_/my/favicon.ico">
+		<link rel="stylesheet" type="text/css" href="__CSS__/style.css"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/myanimate.css"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/schedule.css"/>
+		<link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">	
+		<script src="__JS__/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>	
+		<script src="__JS__/schedule.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/mouseDirection.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		   $(document).ready(function(){
+   
+            //debugger;
+              //轮播图片start
+              var now = $(".pic li").length - 1;
+              $(".pic li").addClass('beforeim');
+              $(".pic li").eq(now).removeClass('beforeim');
+              function lunbo(){          	   
+          	        $(".pic li").removeClass('imgin');
+          	        $(".pic li").removeClass('imgout');
+
+              	  	$(".pic li").addClass('beforeim');
+                    $(".pic li").eq(now).removeClass('beforeim');
+              	  	setTimeout(function(){ //这里使用setTimeout的作用是为了让代码停一段时间，再往下执行。不然会有bug        	  		
+		              	if(now >= 0){
+		              	  if(now != 0){
+		              	  	$(".pic li").eq(now).addClass('imgout');
+		              		$(".pic li").eq(now-1).addClass('imgin');
+		              		now--;
+		              	  }
+		              	  else{
+		              	  	$(".pic li").eq(0).addClass('imgout');
+		              	  	$(".pic li").eq($(".pic li").length - 1).addClass('imgin');
+		              	  	now = $(".pic li").length - 1;
+		              	  }
+		              	    
+		              	}
+              	  	},10)
+                }
+              setInterval(lunbo,8000); //循环轮播
+              //轮播图片end    
+              
+             //添加日历start 
+          	var mySchedule = new Schedule({
+				el: '#schedule-box',
+				//date: '2018-9-20',
+				clickCb: function (y,m,d) {
+					//document.querySelector('#h3Ele').innerHTML = '日期：'+y+'-'+m+'-'+d	
+				},
+				nextMonthCb: function (y,m,d) {
+					//document.querySelector('#h3Ele').innerHTML = '日期：'+y+'-'+m+'-'+d	
+				},
+				nextYeayCb: function (y,m,d) {
+					//document.querySelector('#h3Ele').innerHTML = '日期：'+y+'-'+m+'-'+d	
+				},
+				prevMonthCb: function (y,m,d) {
+					//document.querySelector('#h3Ele').innerHTML = '日期：'+y+'-'+m+'-'+d	
+				},
+				prevYearCb: function (y,m,d) {
+					//document.querySelector('#h3Ele').innerHTML = '日期：'+y+'-'+m+'-'+d	
+				}
+			});//添加日历end
+			 
+			
+			
+			//四个小方块的背景方块滑入滑出start
+	        $('.child-squares').each(function () {
+		        new MouseDirection(this, {
+		            enter: function ($element, dir) {
+                      //console.log(dir + '进入');
+                      if(dir == 'top'){ //top
+                      	    $element.children('.child_bg').removeClass('child_trans'); //每次进入前先把.child_trans类移除掉，以免后面调整位置的时候也产生过渡效果
+                      	    $element.children('.child_bg').css({ left: '0',top: '-86px' });                    	    
+                      	    setTimeout(function(){
+		                      	$element.children('.child_bg').addClass('child_trans');  //启用过渡        
+                      	    },10);
+	                      	//debugger;	                      	
+	                      	setTimeout(function(){	    // 使代码先停顿一会，再往下执行                     		
+	                      		$element.children('.child_bg').css({ top: '0' });
+	                      	},10)
+	                      	
+	                      }
+	                      else if(dir == 'right'){ //right                      	
+	                      	$element.children('.child_bg').removeClass('child_trans'); //每次进入前先把.child_trans类移除掉，以免后面调整位置的时候也产生过渡效果
+	                      	$element.children('.child_bg').css({ left: '150px',top: '0' });
+	                      	setTimeout(function(){
+	                      	    $element.children('.child_bg').addClass('child_trans');  //启用过渡                      	    
+                      	    },10);	                      	
+	                      	setTimeout(function(){	   // 使代码先停顿一会，再往下执行                     		
+	                      		$element.children('.child_bg').css({ left: '0' });
+	                      	},10)
+	                      }
+	                      else if(dir == 'bottom'){ //bottom
+	                      	$element.children('.child_bg').removeClass('child_trans'); //每次进入前先把.child_trans类移除掉，以免后面调整位置的时候也产生过渡效果
+	                      	$element.children('.child_bg').css({ left: '0',top: '86px' });
+	                      	setTimeout(function(){
+	                      	    $element.children('.child_bg').addClass('child_trans');  //启用过渡                       	    
+                      	    },10);
+	                      	
+	                      	setTimeout(function(){	  // 使代码先停顿一会，再往下执行                    		
+	                      		$element.children('.child_bg').css({ top: '0' });
+	                      	},10)
+	                      }
+	                      else if(dir == 'left'){  //left
+	                      	$element.children('.child_bg').removeClass('child_trans'); //每次进入前先把.child_trans类移除掉，以免后面调整位置的时候也产生过渡效果
+	                      	$element.children('.child_bg').css({ left: '-150px',top: '0' });
+	                      	setTimeout(function(){
+	                      	    $element.children('.child_bg').addClass('child_trans');  //启用过渡                   	    
+                      	    },10);
+	                      	setTimeout(function(){	   // 使代码先停顿一会，再往下执行                     		
+	                      		$element.children('.child_bg').css({ left: '0' });
+	                      	},10)
+	                      }
+		            },
+		            leave: function ($element, dir) {
+                      //console.log(dir + '离开');
+                      if(dir == 'top'){ //top
+	                      	$element.children('.child_bg').css({ top: '-86px' });
+	                      }
+	                      else if(dir == 'right'){ //right
+	                      	$element.children('.child_bg').css({ left: '150px' });
+	                      }
+	                      else if(dir == 'bottom'){ //bottom
+	                      	$element.children('.child_bg').css({ top: '86px' });
+	                      }
+	                      else if(dir == 'left'){  //left
+	                      	$element.children('.child_bg').css({ left: '-150px' });
+	                      }
+		            }
+		        });
+		    });//四个小方块的背景方块滑入滑出end        
+		      
+			});//结束
+		</script>		
+		<style type="text/css">
+			
+		</style>
+		
+	</head>
+	<body>
+		<script color="243,142,40" opacity='0.7' zIndex="-1" count="59" src="__JS__/canvas-nest.js" type="text/javascript" charset="utf-8"></script>
+		<div id="container" class="container">
+			<div class="header">
+			   <img class="header_logo float-l leftInto" src="_IMG_/my/logo2.png"/>
+			   <div class="header_text float-l rightInto" id="">
+				   <div id="" class="title">阿本吖</div>
+				   <div id="" class="description">个人博客</div>			   	
+			   </div>
+			</div>
+			<nav class="bounceInto">
+				<ul>
+					<li><a class="active" href="">首页</a></li>
+					<li><a href="">技术博文</a></li>
+					<li><a href="">前端作品</a></li>
+					<li><a href="">碎碎念</a></li>
+					<li><a href="">留言板</a></li>
+					<li><a href="">相册</a></li>
+					<li><a href="">下载</a></li>
+					<li><a href="">关于我</a></li>				
+				</ul>
+			</nav>
+			<div class="lunbo marTop">
+				 <ul class="pic lunboIn">
+		            <li><a href="javascript:;"><img src="_IMG_/my/lunbo1.jpg" alt="pic1"></a></li>
+		            <li><a href="javascript:;"><img src="_IMG_/my/lunbo2.jpg" alt="pic1"></a></li>
+		            <li><a href="javascript:;"><img src="_IMG_/my/lunbo3.jpg" alt="pic1"></a></li>
+		            <li><a href="javascript:;"><img src="_IMG_/my/lunbo4.jpg" alt="pic1"></a></li>
+		            <li><a href="javascript:;"><img src="_IMG_/my/lunbo5.jpg" alt="pic1"></a></li>
+		        </ul>
+			</div>
+			<div class="searchAndQuotes marTop searchAndQuotesIn">
+				<form class="search-form">
+					    <div class="search-bg search-bg-hover"></div>
+						<input type="text" class="search-text" name="" id="" value="" placeholder="请输入你需要的内容"/>
+					    <input type="submit" class="search-btn" name="" id="" value="" />
+				</form>
+				<div class="quotes" id="">
+					<div class="quotes-all" id="">
+						<div id="quotes-all2">
+							<span class="quotes-text" id="">
+						   	   有时候,你需要出去走一走,呼吸一下新鲜空气,然后提醒自己,你是谁,你要成为什么样的人。
+						    </span>
+							<span class="quotes-name" id="">
+							   	    ---- by 阿本
+							</span>
+						</div>
+					</div>		  
+				</div>			
+			</div>
+			<div class="quotesClear marTop" id=""></div>
+			<div class="bottom marTop bottomIn">
+				<div class="articles">
+					<div class="articles-title">
+						文章推荐
+					</div>
+					<ul class="article-list">
+						<li>
+							<img src="_IMG_/my/article1.jpg"/>
+							<div class="article-main">
+								<h3><a href="">阿里巴巴iconfont怎么是正确的使用方式？</a></h3>
+								<div class="article-info">
+									<span class="info-author" id=""><a href=""><em>郑玮</em></a></span>
+									<span class="info-time"  id=""><a href="">发布时间:&nbsp;<em>2018-06-01 20:36:00</em></a></span>
+									<span class="info-type" id=""><a href="">分类:&nbsp;<em>web前端</em></a></span>
+								</div>
+								<a href=""><p class="article-p clear">Ionic有个自己的图标库，但是有些需要的图标还是没有，下面介绍一下阿里巴巴的矢量图标库，在Ionic中如何使用.静态文件存放目录，新建font文件夹用来存放字体文件（可自定义存放）Ionic有个自己的图标库，但是有些需要的图标还是没有，下面介绍一下阿里巴巴的矢量图标库，在Ionic中如何使用.静态文件存放目录</p></a>
+							</div>
+						</li>
+						<li>
+							<img src="_IMG_/my/article2.jpg"/>
+							<div class="article-main">
+								<h3><a href="">阿里巴巴iconfont怎么是正确的使用方式？</a></h3>
+								<div class="article-info">
+									<span class="info-author" id=""><a href=""><em>郑玮</em></a></span>
+									<span class="info-time"  id=""><a href="">发布时间:&nbsp;<em>2018-06-01 20:36:00</em></a></span>
+									<span class="info-type" id=""><a href="">分类:&nbsp;<em>web前端</em></a></span>
+								</div>
+								<a href=""><p class="article-p clear">Ionic有个自己的图标库，但是有些需要的图标还是没有，下面介绍一下阿里巴巴的矢量图标库，在Ionic中如何使用.静态文件存放目录，新建font文件夹用来存放字体文件（可自定义存放）Ionic有个自己的图标库，但是有些需要的图标还是没有，下面介绍一下阿里巴巴的矢量图标库，在Ionic中如何使用.静态文件存放目录</p></a>
+							</div>
+						</li>
+						<li>
+							<img src="_IMG_/my/article3.jpg"/>
+							<div class="article-main">
+								<h3><a href="">阿里巴巴iconfont怎么是正确的使用方式？</a></h3>
+								<div class="article-info">
+									<span class="info-author" id=""><a href=""><em>郑玮</em></a></span>
+									<span class="info-time"  id=""><a href="">发布时间:&nbsp;<em>2018-06-01 20:36:00</em></a></span>
+									<span class="info-type" id=""><a href="">分类:&nbsp;<em>web前端</em></a></span>
+								</div>
+								<a href=""><p class="article-p clear">Ionic有个自己的图标库，但是有些需要的图标还是没有，下面介绍一下阿里巴巴的矢量图标库，在Ionic中如何使用.静态文件存放目录，新建font文件夹用来存放字体文件（可自定义存放）Ionic有个自己的图标库，但是有些需要的图标还是没有，下面介绍一下阿里巴巴的矢量图标库，在Ionic中如何使用.静态文件存放目录</p></a>
+							</div>
+						</li>
+						<li>
+							<img src="_IMG_/my/article4.jpg"/>
+							<div class="article-main">
+								<h3><a href="">阿里巴巴iconfont怎么是正确的使用方式？</a></h3>
+								<div class="article-info">
+									<span class="info-author" id=""><a href=""><em>郑玮</em></a></span>
+									<span class="info-time"  id=""><a href="">发布时间:&nbsp;<em>2018-06-01 20:36:00</em></a></span>
+									<span class="info-type" id=""><a href="">分类:&nbsp;<em>web前端</em></a></span>
+								</div>
+								<a href=""><p class="article-p clear">Ionic有个自己的图标库，但是有些需要的图标还是没有，下面介绍一下阿里巴巴的矢量图标库，在Ionic中如何使用.静态文件存放目录，新建font文件夹用来存放字体文件（可自定义存放）Ionic有个自己的图标库，但是有些需要的图标还是没有，下面介绍一下阿里巴巴的矢量图标库，在Ionic中如何使用.静态文件存放目录</p></a>
+							</div>
+						</li>
+						<li>
+							<img src="_IMG_/my/article5.jpg"/>
+							<div class="article-main">
+								<h3><a href="">阿里巴巴iconfont怎么是正确的使用方式？</a></h3>
+								<div class="article-info">
+									<span class="info-author" id=""><a href=""><em>郑玮</em></a></span>
+									<span class="info-time"  id=""><a href="">发布时间:&nbsp;<em>2018-06-01 20:36:00</em></a></span>
+									<span class="info-type" id=""><a href="">分类:&nbsp;<em>web前端</em></a></span>
+								</div>
+								<a href=""><p class="article-p clear">Ionic有个自己的图标库，但是有些需要的图标还是没有，下面介绍一下阿里巴巴的矢量图标库，在Ionic中如何使用.静态文件存放目录，新建font文件夹用来存放字体文件（可自定义存放）Ionic有个自己的图标库，但是有些需要的图标还是没有，下面介绍一下阿里巴巴的矢量图标库，在Ionic中如何使用.静态文件存放目录</p></a>
+							</div>
+						</li>
+					</ul>					
+				</div>
+				<div class="bottom-right">
+					<div class="schedule">
+						<div id='schedule-box' class="boxshaw"> </div>
+					</div>
+					<div class="four-squares">
+						<a href="" class="child-squares child_test"><div class="child_bg"  ></div>相册</a>
+						<a href="" class="child-squares"><div class="child_bg"  ></div>大雪中</a>
+						<a href="" class="child-squares"><div class="child_bg"  ></div>随笔</a>
+						<a href="" class="child-squares"><div class="child_bg"  ></div>在途中</a>
+					</div>
+					<div class="bolg_info">
+						<div class="myinfo">
+							<div class="myinfo_all">
+								<ul class="myinfo_left">
+									<li>姓名：</li>
+									<li>职业：</li>
+									<li>主页：</li>
+									<li>籍贯：</li>
+									<li>目前：</li>
+								</ul>
+								<ul class="myinfo_right">
+									<li>郑玮</li>
+									<li>嗯嗯~~~</li>
+									<li>weiwei.com</li>
+									<li>广东揭阳</li>
+									<li>想养只二哈</li>
+								</ul>
+								<img class="myinfo_all_img" src="_IMG_/my/erha.jpg"/>
+							</div>						
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div class="popularArticles marTop">
+                	   <div class="articles-title">点击排行</div>
+                	   <div class="popularArticles_all">
+                	   	  <a class="popularArticles_son" href="">
+                	   	  	<div class="son_xuhao son_xuhao_top3" id="">1</div>
+                	   	  	<div class="son_titile">
+                	   	  		如何选择更适合你的 Linux 发行版？如何选择更适合你的 Linux 发行版？
+                	   	  	</div>
+                	   	  </a>
+                	   	  <a class="popularArticles_son" href="">
+                	   	  	<div class="son_xuhao son_xuhao_top3" id="">2</div>
+                	   	  	<div class="son_titile">
+                	   	  		如何选择更适合你的 Linux 发行版？如何选择更适合你的 Linux 发行版？
+                	   	  	</div>
+                	   	  </a>
+                	   	  <a class="popularArticles_son" href="">
+                	   	  	<div class="son_xuhao son_xuhao_top3" id="">3</div>
+                	   	  	<div class="son_titile">
+                	   	  		如何选择更适合你的 Linux 发行版？如何选择更适合你的 Linux 发行版？
+                	   	  	</div>
+                	   	  </a>
+                	   	  <a class="popularArticles_son" href="">
+                	   	  	<div class="son_xuhao" id="">4</div>
+                	   	  	<div class="son_titile">
+                	   	  		如何选择更适合你的 Linux 发行版？如何选择更适合你的 Linux 发行版？
+                	   	  	</div>
+                	   	  </a>
+                	   	  <a class="popularArticles_son" href="">
+                	   	  	<div class="son_xuhao" id="">5</div>
+                	   	  	<div class="son_titile">
+                	   	  		如何选择更适合你的 Linux 发行版？如何选择更适合你的 Linux 发行版？
+                	   	  	</div>
+                	   	  </a>
+                	   	  <a class="popularArticles_son" href="">
+                	   	  	<div class="son_xuhao" id="">6</div>
+                	   	  	<div class="son_titile">
+                	   	  		如何选择更适合你的 Linux 发行版？如何选择更适合你的 Linux 发行版？
+                	   	  	</div>
+                	   	  </a>
+                	   	  <a class="popularArticles_son" href="">
+                	   	  	<div class="son_xuhao" id="">7</div>
+                	   	  	<div class="son_titile">
+                	   	  		如何选择更适合你的 Linux 发行版？如何选择更适合你的 Linux 发行版？
+                	   	  	</div>
+                	   	  </a>
+                	   	  <a class="popularArticles_son" href="">
+                	   	  	<div class="son_xuhao" id="">8</div>
+                	   	  	<div class="son_titile">
+                	   	  		如何选择更适合你的 Linux 发行版？如何选择更适合你的 Linux 发行版？
+                	   	  	</div>
+                	   	  </a>
+                	   	  <a class="popularArticles_son" href="">
+                	   	  	<div class="son_xuhao" id="">9</div>
+                	   	  	<div class="son_titile">
+                	   	  		如何选择更适合你的 Linux 发行版？如何选择更适合你的 Linux 发行版？
+                	   	  	</div>
+                	   	  </a>
+                	   	  <a class="popularArticles_son" href="">
+                	   	  	<div class="son_xuhao" id="">10</div>
+                	   	  	<div class="son_titile">
+                	   	  		如何选择更适合你的 Linux 发行版？如何选择更适合你的 Linux 发行版？
+                	   	  	</div>
+                	   	  </a>
+                	   </div>
+                    </div>
+				</div>
+				              
+				<div class="clear"></div>
+			</div>
+			
+		</div>
+	</body>
+</html>
