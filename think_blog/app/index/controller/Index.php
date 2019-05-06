@@ -12,4 +12,5 @@ class Index
     public function login(){  	
     	return view();
     }
+
 }

@@ -2,9 +2,333 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<title>阿本-登录</title>
 		<link rel="shortcut icon" href="_IMG_/my/favicon.ico">
-		<title>登录页面</title>
+        <script src="__JS__/login_js/ThreeCanvas.js"></script>
+     	<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+	    <script>window.jQuery || document.write('<script src="__JS__/login_js/jquery-1.11.0.min.js"><\/script>')</script>
+	    <script src="__JS__/login_js/Snow.js"></script>
+	    <script src="__JS__/login_js/snowFall.js"></script>
+	    <script type="text/javascript" src="__JS__/login_js/iconfont.js" ></script>
+        <script type="text/javascript" src="__JS__/jquery.cookie.js" ></script>
+	    <style type="text/css">
+	    	* {margin: 0;padding: 0;transition: all 0.5s;-webkit-transition: all 0.5s;}
+	    	.cuowu_none{ opacity: 0;}
+
+	    	body {width: 100%;height: 100%;background-image: url(_IMG_/login/login_bg3.jpg);background-repeat: no-repeat;background-size: 100% 100%;background-attachment: fixed;background-position: center top;min-height: 100%;min-width: 320px;font-family: 'Microsoft YaHei';overflow: hidden;position: relative;}
+	    	
+	    	/*登录注册面板*/
+	    	.login_main {width: 370px;height: 343px;background: rgba(245, 245, 245, 0.8);position: absolute;margin: auto;top: 0;bottom: 0; left: 0; right: 0; border-radius: 10px; overflow: hidden; /*display: none;*/ opacity: 1; }
+	    	
+	    	/*找回密码面板*/
+	    	.find_pw{ width: 370px; height: 343px; background: rgba(245, 245, 245, 0.6); position: absolute; margin: auto; top: 0; bottom: 0; left: 0; right: 0; border-radius: 10px; overflow: hidden; display: none; opacity: 0;	 transform: rotateY(90deg); -webkit-transform: rotateY(90deg); /* Safari 与 Chrome */ }
+	    	 
+	    	.login_main .main_top,.find_pw .main_top { list-style: none; display: block; width: 100%; height: 42px; border-bottom: 1px solid gainsboro; }
+	    	
+	    	.login_main .main_top li { float: left; width: 50%; height: 100%; text-align: center; line-height: 42px; font-size: 15px; color: #0087ffc4; cursor: pointer;  }
+	    	
+	    	.find_pw .main_top li { float: left; width: 50%; height: 100%; text-align: center; line-height: 42px; font-size: 15px; color: #0087ffc4; cursor: pointer; }
+	    	
+	    	.login_main .main_top li.active { background: #0087ffc4; color: white; }
+	    	
+	    	.login_main .main_center { list-style: none; display: block; width: 740px; height: 300px; /*margin-left: -370px; */  /*调控登录面板和注册面板*/ }
+	    	.find_pw .main_center { list-style: none; display: block; width: 740px; height: 300px; }
+	    	
+	    	.login_main .main_center li { float: left; width: 370px; height: 300px; }
+	    	.find_pw .main_center li { float: left; width: 370px; height: 300px; }
+	    	
+	    	.login_main .main_center .input_common{ width: 270px; height: 40px; line-height: 40px; margin-left: 25px; padding-left: 40px; font-size: 14px; border: 1px solid #0087ffc4; font-weight: 500; border-radius: 3px; color: darkgray; }
+	    	.find_pw .main_center .input_common { width: 270px; height: 40px; line-height: 40px; margin-left: 25px; padding-left: 40px; font-size: 14px; border: 1px solid orangered; outline-color: orangered; font-weight: 500; border-radius: 3px; color: darkgray; }
+	    	
+	    	#useremail,#find_email { margin-top: 22px; background: url(_IMG_/login/register_email.png) no-repeat; background-size: 24px; background-position-x: 8px; background-position-y: 8px; }
+	    	
+	    	#usercheck { margin-top: 22px; background: url(_IMG_/login/register_check.png) no-repeat; background-size: 24px; background-position-x: 8px; background-position-y: 7px; position: relative; }
+	    	#user_reg_pw{ margin-top: 22px; background: url(_IMG_/login/register_pw.png) no-repeat; background-size: 24px; background-position-x: 8px; background-position-y: 8px; }
+	    	#user_reset_pw{ margin-top: 22px; background: url(_IMG_/login/register_pw.png) no-repeat; background-size: 24px; background-position-x: 8px; background-position-y: 8px; }
+	    	#user_name { margin-top: 22px; background: url(_IMG_/login/login_user.png) no-repeat; background-position-y: -1px; }
+	    	
+	    	#userpw { margin-top: 20px; background: url(_IMG_/login/login_pw.png) no-repeat; }    	
+	    	#denglu,#register { width: 314px; height: 40px; line-height: 40px; margin-top: 20px; margin-left: 25px; font-size: 16px; font-family: "微软雅黑"; color: white; border: 0; outline: none; background: #0087ffc4; border-radius: 3px; cursor: pointer; padding-left: 0; }	    	
+	    	#denglu:hover,#register:hover { background: #004dffc4; }
+	    	#check_div { margin: 11px 0 0 25px; font-size: 12px; color: #0087ffc4; float: left; }
+	    	
+	    	#check_span { display: block; float: right; margin-top: -2px; }
+	    	
+	    	#p1 { display: block; float: right; margin-top: 6px; margin-right: 30px; }
+	    	
+	    	.forget { font-weight: 300; font-size: 15px; text-decoration: none; color: #0087ffc4; cursor: pointer; }
+	    		    	
+	    	.main_center_login .main_center_login_span { display: block; font-size: 13px; color: gray; text-align: center; margin: -11px auto; background: rgba(245, 245, 245, 0.1); }
+	    	.main_center_login_span:before{ content: "";  /*这个content属性，在这里是必须的，如果没有它，这些伪元素将不能正常显示。*/
+			    display: inline-block; width: 100px; margin-right: 16px; margin-bottom: 4px; border-bottom: 1px solid gray; }
+	    	.main_center_login_span:after{ content: ""; /*这个content属性，在这里是必须的，如果没有它，这些伪元素将不能正常显示。*/
+			    display: inline-block; width: 100px; margin-left: 16px; margin-bottom: 4px; border-bottom: 1px solid gray; }
+	    	.main_center_other_login { display: block; height: 66px; width: 314px; margin-left: 25px; margin-top: 44px; clear: both; }
+	    	
+	    	.icon { width: 1em; height: 1em; vertical-align: -0.15em; fill: currentColor; overflow: hidden; }	  	
+	    	.icon-left { font-size: 30px; float: left; margin-top: 24px; margin-left: 105px; cursor: pointer; }    
+	    	.icon-right { font-size: 26px; float: right; margin-top: 25px; margin-right: 105px; cursor: pointer; }
+	    	.icon-cuowu { font-size: 28px; position: relative; right: 3px; top: 5px; }
+	    	.sendcode{ position: absolute; height: 40px; width: 70px; border: none; outline: none; color: gray; background: transparent; right: 34px; top: 87px; cursor: pointer; }
+	    	.confirm{ position: absolute; height: 40px; width: 70px; border: none; outline: none; color: orangered; background: transparent; right: 34px; bottom: 38px; cursor: pointer; }
+	    	.main_center_register,.main_center_findpw{ position: relative;}
+	    	
+	    	
+	    	#find_checkcode { width: 140px; height: 43px; border: 0; outline-color: orangered; margin: 25px 0 0 25px; border-radius: 5px; padding: 0 0 0 15px; }
+			.nogetcode { width: 140px; height: 43px; border: 0; border-radius: 5px; margin: 0 0 0 10px; outline: none; cursor: pointer; color: white; background: orangered; }
+			#getpw { width: 312px; height: 43px; margin: 25px 0 0 25px; border: 0; border-radius: 5px; color: white; background: orangered; outline: none; cursor: pointer; }
+			#getpw:hover{ background: #ff0000fa; }
+			.find_h6 { float: left; position: absolute; margin: 0 0 0 66px; z-index: 10; background: url(_IMG_/login/orange_error.png) no-repeat; background-position-y: 2px; color: orangered; padding: 0 0 0 18px;
+			}
+			#find_a{ display: block; position: absolute; top: 10px; left: 10px; cursor: pointer; }
+			
+			.alert_useremail{ display: block; position: absolute; left: 66px; font-size: 12px; font-style: initial; color: rgb(252, 53, 93); opacity: 0;}
+	   </style>
+	   <script type="text/javascript">
+          $(document).ready(function(){
+          	
+          	var CHECKCODE = "";
+          	$("#useremail").val("arvin517@163.com");
+          	
+          	$("#useremail").focus(function(){   //当鼠标聚焦到文本框时，后面的红色叉消失
+          		$(".register_email_cuowu").css("opacity","0");
+          		$(".alert_useremail").css("opacity",0).html("");
+          	});
+          	
+          	$("#usercheck").focus(function(){   //当鼠标聚焦到文本框时，后面的红色叉消失
+          		$(".register_check_cuowu").css("opacity","0");
+          	});
+          	$("#user_reg_pw").focus(function(){   //当鼠标聚焦到文本框时，后面的红色叉消失
+          		$(".register_pw_cuowu").css("opacity","0");
+          	});
+
+          	//网页粒子背景，控制雪景
+				$.snowFall({
+					//创建粒子数量，密度
+					particleNo: 500,
+					//粒子下拉速度
+					particleSpeed:40,
+					//粒子在垂直（Y轴）方向运动范围
+					particleY_Range:1300,
+					//粒子在垂直（X轴）方向运动范围
+					particleX_Range:2000,
+					//是否绑定鼠标事件
+				    bindMouse: false,
+				    //相机离Z轴原点距离
+				    zIndex:600,
+				  //摄像机视野角度
+				    angle:55,
+				    wind_weight:0
+				});
+				
+
+				
+          });
+            //获取注册账号验证码
+            function getCheckCode(){
+            	var regex_email = /^\w+@[a-z0-9]+\.[a-z]+$/i;
+            	if(!regex_email.test($("#useremail").val())){
+            		$(".register_email_cuowu").css("opacity","1");
+            		$(".alert_useremail").html("邮箱格式不规范！").css("opacity",1);
+            	}
+            	else{            		
+            		//getCheckCode
+            		$("#bt_sendcode").html("发送中...");
+            		var user_email = $("#useremail").val();
+            		//debugger;
+            		//return;
+            		$.ajax({ 
+						       url:'/think_blog/public/index/Action/sendCode',
+						       
+						       //提交类型
+						       type:'POST',
+						       
+						       //提交数据给后台
+						       data:{"useremail":user_email}, 
+						       
+						       //返回的数据类型
+						       dataType:'json', 						       
+						       
+						       //成功是调用的方法
+						       success:function(data){ 
+						    	   
+						              if(!data){
+						              	$("#bt_sendcode").html("发送失败！");
+						              }
+						              else{	
+						                CHECKCODE = data;
+						              	clearInterval(code_timer);  //每次点击时，都先清除原先的定时器
+			                            var time = 60;                  //每次点击时，秒数重新计算
+						              	var code_timer = setInterval(function(){
+						              		
+						              		$("#bt_sendcode").html("（" + time + "）");
+						              		
+						              		time  = time-1;
+						              		if(time == -1){
+						              			
+						              			$("#bt_sendcode").html("重新发送");
+						              			clearInterval(code_timer);  //清除定时器
+						              			CHECKCODE = 0;
+						              		}						              		
+						              	},1000);
+						              }
+						          }
+						     });           		
+            	}
+            }
+            
+            //输入验证码和密码后，按”立即注册按钮“
+            function confirmUser(){
+            	
+            	//判断密码是否在6-20个字符之间
+            	var rep_pw = /^.{6,20}$/;
+            	if(!rep_pw.test($("#user_reg_pw").val())){           		
+            		$(".register_pw_cuowu").css("opacity",1);
+            		return;
+            	}
+            	
+                //判断验证码是否正确
+            	if(!(CHECKCODE == $("#usercheck").val())){
+            		$(".register_check_cuowu").css("opacity",1);
+            		return;
+            	}
+            	else{
+            		var user_email = $("#useremail").val();
+            		var user_reg_pw = $("#user_reg_pw").val();
+            		$.ajax({ 
+						       url:'/think_blog/public/index/Action/createUser',
+						       
+						       //提交类型
+						       type:'POST',
+						       
+						       //提交数据给后台
+						       data:{"useremail":user_email,"user_reg_pw":user_reg_pw}, 
+						       
+						       //返回的数据类型
+						       dataType:'json', 						       
+						       
+						       //成功是调用的方法
+						       success:function(data){ 
+						    	   
+						    	    if(data){
+						    	    	alert("注册成功！");
+						    	    	changePanel(1);
+						    	    }else{
+						    	    	alert("注册失败！");
+						    	    }
+						          }
+						     });
+            	}
+            }
+            
+            //切换登录和注册面板
+            function changePanel(active_id){			
+					//alert(active_id);
+					if(active_id==1){
+						$(".main_top_denglu").addClass("active");
+						$(".main_top_register").removeClass("active");
+						$(".main_center").css("margin-left","0px");    // /*margin-left: -370px; */  /*调控登录面板和注册面板*/
+						$(".main_center_login").css("opacity","1");
+						$(".main_center_register").css("opacity","0");
+					}else{
+						$(".main_top_register").addClass("active");
+						$(".main_top_denglu").removeClass("active");
+						$(".main_center").css("margin-left","-370px");
+						$(".main_center_login").css("opacity","0");
+						$(".main_center_register").css("opacity","1");
+					}
+				}
+            
+            //切换到找回密码面板
+            function showFindPWPanel() {
+            	$(".login_main").css({ "transform": "rotateY(90deg)", "-webkit-transform": "rotateY(90deg)", "opacity": "0" });
+            	$(".find_pw").css("display", "block");
+            	
+            	setTimeout(function() {
+            		$(".login_main").css({ "display": "none", "": "" });
+            		$(".find_pw").css({ "transform": "rotateY(0deg)", "-webkit-transform": "rotateY(0deg)", "opacity": "1" });
+            	}, 500);
+            }
+            
+            //切换回登录注册面板
+            function showLoginPanel(){
+            	$(".find_pw").css({ "transform": "rotateY(90deg)", "-webkit-transform": "rotateY(90deg)", "opacity": "0" });
+            	$(".login_main").css("display", "block");
+            	setTimeout(function(){
+            		$(".find_pw").css({ "display": "none", "": "" });
+            		$(".login_main").css({ "transform": "rotateY(0deg)", "-webkit-transform": "rotateY(0deg)", "opacity": "1" });
+            	},500);
+            }
+            
+
+	   </script>
 	</head>
 	<body>
+      <div class="login_main">
+      	<lu class="main_top">
+      		<li class="main_top_denglu active" onclick="changePanel(1)">登录</li>
+      		<li class="main_top_register" onclick="changePanel(2)">注册</li>
+      	</lu>
+      	<lu class="main_center">
+      		<li class="main_center_login">
+      			<input class="input_common" id="user_name" type="text" placeholder="用户名\手机号\邮箱"/>
+	  	 		<input class="input_common" id="userpw" type="password" placeholder="请输入密码"/>
+	  	 		<svg class="icon icon-cuowu login_pw_cuowu" aria-hidden="true">
+				  <use xlink:href="#icon-cuowu"></use>
+				</svg>
+	  	 		<input class="input_common" id="denglu" type="submit" value="立即登录" />
+	  	 		<div id="check_div"><input id="check"  type="checkbox" name="check" value=""><span id="check_span">记住我的登录信息</span></input></div>
+	  	 	    <p id="p1">
+	  	 		   <span class="forget" onclick="showFindPWPanel()">忘记密码？</span>	  	 				
+	  	 		</p>
+	  	 		<div class="main_center_other_login">
+	  	 			<span class="main_center_login_span">第三方登录</span>
+	  	 			<svg class="icon icon-left" aria-hidden="true">
+					  <use xlink:href="#icon-qq"></use>
+					</svg>
+					<svg class="icon icon-right" aria-hidden="true">
+					  <use xlink:href="#icon-weixin"></use>
+					</svg>
+	  	 		</div>
+	  	 		
+      		</li>
+      		<li class="main_center_register">
+      			<input class="input_common" id="useremail" type="text" placeholder="请输入正确的邮箱"/>
+                <i class="alert_useremail">该邮箱已被注册!</i>
+      			<svg class="register_email_cuowu icon icon-cuowu cuowu_none" id="register_email" aria-hidden="true">
+				  <use xlink:href="#icon-cuowu"></use>
+				</svg>
+
+	  	 		<input class="input_common" id="usercheck" type="text" placeholder="请输入邮箱验证码"/>
+	  	 		<button id="bt_sendcode" class="sendcode" onclick="getCheckCode()">点击发送</button>
+	  	 		<svg class="icon icon-cuowu register_check_cuowu cuowu_none" aria-hidden="true">
+				  <use xlink:href="#icon-cuowu"></use>
+				</svg>
+	  	 		<input class="input_common" id="user_reg_pw" type="password" placeholder="请输入密码(6-20个字符)"/>
+	  	 		<svg class="icon icon-cuowu register_pw_cuowu cuowu_none" aria-hidden="true">
+				  <use xlink:href="#icon-cuowu"></use>
+				</svg>
+	  	 		<input class="input_common" id="register" type="submit" value="立即注册" onclick="confirmUser()" />
+      		</li>
+      	</lu>
+      </div>
+      <div class="find_pw">
+      	<lu class="main_top">
+      		<span id="find_a" onclick="showLoginPanel()"><img src="_IMG_/login/return.png"/></span>
+      	</lu>
+      	<lu class="main_center">
+      		  <li class="main_center_findpw">
+      			<input class="input_common" id="find_email" type="text" placeholder="请输入已注册的邮箱"/>
+				<h6 id="find_h6_uname" class="find_h6">该邮箱未注册！</h6>
+				<input type="text" name="find_checkcode" id="find_checkcode" value="" placeholder="请输入验证码"/>
+			    <input type="button" name="get_find_code" id="bt_find_checkcode" class="nogetcode" value="获取验证码" disabled="disabled" />
+			    <h6 id="find_h6_checkcode" class="find_h6">验证码错误！</h6>
+			    <input type="button" name="getpw" id="getpw"  value="找回密码" />
+			    <input class="input_common" id="user_reset_pw" type="password" placeholder="请重新设置密码(至少6个字符)"/>         <button class="confirm">确定</button>
+			    
+      		 </li>
+      	</lu>
+      </div>
 	</body>
+
 </html>
