@@ -39,19 +39,16 @@
                 	          
                 //return三种情况： 0 表示 邮箱未注册 ， 1 表示 发送验证码失败， $checkCode 表示发送验证码成功           
                 	if($fp_res > 0){
-                		if(sendEmail($checkCode, $req_email,"") ){ //若发送邮件成功，则将验证码保存在cookie中，方便前端模板利用       	                
+                		if(sendEmail($checkCode, $req_email,"") ){ //若发送邮件成功，则将验证码保存在cookie中，方便前端模板利用                      
 		                  	 return $checkCode;
 		                  }
 		                  else{
 		                   	  return 1;
 		                  }   
-                	}else{
-                		
+                	}else{             		
                 		return 0;
                 	}               	
                 }
-
-
         }
         
         //创建用户
@@ -98,14 +95,15 @@
         	
         	 $denglu_info = $request->param("dl_info");
         	 $denglu_pw = md5($request->param("dl_pw"));
-        	
-        	//这里需要判断两次，第一次判断是否存在该用户，第二次判断该用户密码是否正确
-			$res = User::where("user_name",$denglu_info)
-			        	   ->whereor("user_phone",$denglu_info)
-			        	   ->whereor("user_email",$denglu_info);     
-			               // ->buildSql();
-		    $res = $res::where("user_password","eq",$denglu_pw)->find();
-			 //dump($res->toArray());
+        	 $where = [
+				 'user_password'     => [ 'eq' , $denglu_pw] ,
+				 'user_name|user_phone|user_email' => [ [ 'eq' , $denglu_info],  'or' ] ,
+				   ];
+			//SELECT * FROM `blog_user` WHERE  `blog_user`.`delete_time` IS NULL  AND `user_password` = '96e79218965eb72c92a549dd5a330112'  AND ( ( `user_name` = 'arvin517@163.com' ) OR ( `user_phone` = 'arvin517@163.com' ) OR ( `user_email` = 'arvin517@163.com' ) )	
+			   
+		    //$res = User::where($where)->buildSql();    
+			//dump($res);
+			$res = User::where($where)->find();
 			 if($res){			 	
 			 	session("userInfo",$res->toArray());
 			 	return true;

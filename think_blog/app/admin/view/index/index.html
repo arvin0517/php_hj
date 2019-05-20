@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>阿本-后台管理</title>
+		<link rel="shortcut icon" href="_IMG_/my/favicon.ico">
+		<link rel="stylesheet" href="/think_blog/public/static/layui/css/layui.css">
+		<script src="__JS__/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>	
+		<!--<script src="/think_blog/public/static/layui/layui.js"></script>-->
+		<!--<script src="/think_blog/public/static/layui/layui.all.js"></script>-->
+		<script>//一般直接写在一个js文件中
+//			;!function(){
+//				  var layer = layui.layer
+//				  ,form = layui.form;
+//				  
+//				  layer.msg('Hello World');
+//				}();
+
+//        $(document).ready(function(){
+//				  var layer = layui.layer
+//				  ,form = layui.form;
+//				  
+//				  layer.msg('Hello World');   
+//
+//        });
+		</script>
+		<script>
+			$(document).ready(function(){
+							
+			})
+			
+			function deleteTag(obj){
+				var that = obj;
+				$(that).parent().remove();
+			}
+		</script>
+		<style type="text/css">
+			.layui-self-a{}
+			.layui-self-body{ 
+			    background-color: #f2f2f2;
+			    /*padding: 20px;*/
+			}
+			.layadmin-header{ 
+				height: 50px;
+			    line-height: 50px;
+			    margin-bottom: 0;
+			    border-radius: 0;
+			    padding-left: 20px;
+			    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
+			 }
+			    
+			.layui-body-bowen{
+			    width: 100%-20px;
+			    /*height: 100%;*/
+			    min-height: 500px;
+			    background-color: white; 
+			    margin: 20px;
+			    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.16);   
+			    }
+			.layui-self-search {
+			    display: inline-block;
+			    vertical-align: middle;
+			    height: 32px;
+			    border-top: none;
+			    border-right: none;
+			    border-left: none;
+			    cursor: text;
+			}
+			.layui-self-btn{
+				height: 34px;
+			    line-height: 34px;
+			    padding: 0 16px;
+			    border-radius: 4px;
+			}
+			.layui-self-text{
+				    background-color: #efefef;
+                    border: none;
+			}
+			.layui-self-wangeditor{
+				
+				/*min-height: 800px;*/
+				
+			}
+			.self-wang-toolbar{ border: 1px solid #ccc; }
+			.self-wang-text{ border: 1px solid #ccc; height: 400px; }
+			.self-addBtn{
+				display: inline-block;
+			    padding: 0;
+			    background-color: transparent;
+			    border: none;
+			    color: #349EDF;
+			    font-size: 14px;
+			    line-height: 40px;
+			    outline: none;
+			    cursor: pointer;
+			}
+			.self-ul{ display: inline-block; }
+			.self-ul li{ display: inline-block; position: relative; margin-right: 4px;}
+			.self-ul .self-li-text{
+				width: 48px;
+			    height: 20px;
+			    background-color: #efefef;
+			    border: none;
+			    outline: none;
+			    border-radius: 4px;
+			    color: gray;
+			    padding-left: 6px;
+			    padding-right: 24px;
+            }
+            .self-icon-delete{
+            	position: absolute;
+			    right: 1px;
+			    cursor: pointer;
+			    
+            }
+		</style> 
+	</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo ">阿本后台管理</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="javascript:;">控制台</a></li>
+      <li class="layui-nav-item layui-hide-xs" lay-unselect="">
+        <a href="javascript:;" target="_blank" title="前台">
+          <i class="layui-icon layui-icon-website"></i>
+        </a>
+      </li>
+      <li class="layui-nav-item" lay-unselect="">
+        <a href="javascript:;" layadmin-event="refresh" title="刷新">
+          <i class="layui-icon layui-icon-refresh-3"></i>
+        </a>
+      </li>
+    </ul>
+    
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item layui-hide-xs" lay-unselect="">
+        <a href="javascript:;" layadmin-event="fullscreen">
+          <i class="layui-icon layui-icon-screen-full"></i>
+        </a>
+      </li>
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          阿本
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全设置</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="">退出</a></li>
+    </ul>
+  </div>
+    <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+       <!--左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+      	<li class="layui-nav-item">
+          <a class="" href="javascript:;"><i class="layui-icon layui-icon-home">主页</i></a> 
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">控制台</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">博文管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">博文列表</a></dd>
+            <dd><a href="javascript:;">添加博文</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-item">
+          <a class="" href="javascript:;">前端效果管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">作品列表</a></dd>
+            <dd><a href="javascript:;">添加作品</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-item">
+          <a class="" href="javascript:;">碎碎念管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">碎碎念列表</a></dd>
+            <dd><a href="javascript:;">添加碎碎念</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-item">
+          <a class="" href="javascript:;">留言板管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">留言板列表</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-item">
+          <a class="" href="javascript:;">相册管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">相册列表</a></dd>
+            <dd><a href="javascript:;">添加相册</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-item">
+          <a class="" href="javascript:;">文件管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">文件列表</a></dd>
+            <dd><a href="javascript:;">添加文件</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-item">
+          <a class="" href="javascript:;">用户管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">用户列表</a></dd>
+            <dd><a href="javascript:;">添加用户</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-item">
+          <a class="" href="javascript:;">系统设置</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">网站设置</a></dd>
+            <dd><a href="javascript:;">邮件设置</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">关于我</a></li>    
+      </ul>
+    </div>
+  </div>
+  <div class="layui-body layui-self-body">
+    <!-- 内容主体区域 -->
+    <div class="layui-card layadmin-header">
+	  <div class="layui-breadcrumb" lay-filter="breadcrumb" style="visibility: visible;">
+	    <a><cite>主页</cite></a><span lay-separator="">/</span>
+	    <a><cite>博文管理</cite></a><span lay-separator="">/</span>
+	    <a><cite>博文列表</cite></a>
+	  </div>
+	</div>
+	<div class="layui-body-bowen" id="">
+		<div class="layui-tab" lay-filter="tab_bowen" lay-allowclose="true">
+			<ul class="layui-tab-title">
+				<li lay-id="11">博文列表</li>
+				<li lay-id="22" class="layui-this">添加博文</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item ">
+					<div class="layui-card">
+					  <div class="layui-card-header">
+					  	<a href="javascript:;" layadmin-event="refresh" title="刷新" style="position: absolute;
+    top: -2px; z-index: 1;">
+				          <i class="layui-icon layui-icon-refresh-3"></i>
+				        </a>
+						<form class="layui-form" action="">
+							<div class="layui-form-item">
+								<label class="layui-form-label">全部分类:</label>
+								<div class="layui-inline">
+								  	<select name="bowen-type" lay-verify="">
+									  <option value="">全部</option>
+									  <option value="01">android</option>
+									  <option value="02">后台</option>
+									  <option value="03">前端</option>
+									</select> 
+								</div>
+								<div class="layui-inline">
+							      <label class="layui-form-label">日期范围</label>
+							      <div class="layui-input-inline">
+							        <input type="text" class="layui-input" id="bowen_date" placeholder=" - ">
+							      </div>
+							    </div>
+							    <div class="layui-inline">
+							      <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search layui-self-search" layadmin-event="serach" lay-action="">
+							    </div>
+							    <div class="layui-inline">
+						          <button class="layui-btn layui-self-btn" lay-submit="" lay-filter="">
+						            <i class="layui-icon layui-icon-search"></i>
+						          </button>
+						          
+						        </div>
+							</div>
+					    </form>
+					  </div>
+					  <div class="layui-card-body">
+					     
+					  </div>
+					</div>
+				</div>
+				<div class="layui-tab-item layui-show">
+					<form class="layui-form" action="">	
+					<div class="layui-card">
+					  <div class="layui-card-header">					
+							<div class="layui-form-item">
+							    <!--<label class="layui-form-label">标题</label>-->
+							    <div class="layui-block">
+							      <input id="add_article_title" type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入博文标题(最大100个字符)" class="layui-input layui-self-text" maxlength="100">
+							    </div>
+							 </div>					    
+					  </div>
+					  <div class="layui-card-body">
+					  	<div id="self-toolbar" class="toolbar self-wang-toolbar"></div>
+					  	<div style="padding: 5px 0; color: #ccc"></div>
+					    <div id="self-text" class="text self-wang-text" style="min-height: 600px;"> <!--可使用 min-height 实现编辑区域自动增加高度-->					        
+					    </div>
+					  </div>
+					  <div class="layui-card-body">
+					        <div class="layui-form-item">
+							    <label class="layui-form-label">博文标签：</label>
+							    <div id="">
+							    	<ul id="tag-ul"  class="self-ul">
+							    		<!--<li><input type='text' class='self-li-text' /><i class='layui-icon layui-icon-close self-icon-delete' onclick="deleteTag(this)"></i></li>-->
+							    		<!--<li><input type="text" class="self-li-text" /></li>
+							    		<li><input type="text" class="self-li-text" /></li>
+							    		<li><input type="text" class="self-li-text" /></li>
+							    		<li><input type="text" class="self-li-text" /></li>-->
+							    	</ul>
+							    	
+							    	<span id="addTag" class="self-addBtn"  ><i class="layui-icon layui-icon-add-circle-fine"></i></span>
+							    </div>
+							</div>
+							<div class="layui-form-item">								
+							    <div class="layui-inline">
+							    	<label class="layui-form-label">博文类型：</label>
+							    	<div class="layui-input-inline">
+									  	<select id="add_bw_type" name="bowen-type" lay-verify="">
+										  <option value="">请选择</option>
+										  <option value="原创">原创</option>
+										  <option value="转载">转载</option>
+										  <option value="翻译">翻译</option>
+										</select>
+									</div>
+								</div>								
+							    <div class="layui-inline">
+							    	<label class="layui-form-label">博文分类：</label>
+							    	<div class="layui-input-inline">
+									  	<select id="add_bw_type2" name="bowen-type2" lay-verify="">
+										  <option value="">请选择</option>
+										  <option value="android">android</option>
+										  <option value="数据库">数据库</option>
+										  <option value="后台">后台</option>
+										  <option value="前端">前端</option>
+										  <option value="移动开发">移动开发</option>
+										  <option value="互联网">互联网</option>
+										</select> 
+									</div>
+								</div>
+							</div>
+							 <div class="layui-form-item">
+							    <div class="layui-input-block">
+							      <input type="button" name="" id="btn_public_bowen" value="发布博文" class="layui-btn"  />
+							      <button id="btn_create_bowen" type="reset" class="layui-btn layui-btn-primary">保存草稿</button>
+							    </div>
+							</div>
+					  </div>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © layui.com - 底部固定区域
+  </div>
+
+</div>
+<script type="text/javascript" src="__JS__/jquery-3.2.1.js" ></script>
+<script src="/think_blog/public/static/layui/layui.js"></script>
+<script src="__JS__/wangEditor.min.js"></script>	
+<script>
+    //JavaScript代码区域
+    var E = window.wangEditor;
+    var editor = new E('#self-toolbar','#self-text');
+    // 隐藏“网络图片”tab
+    editor.customConfig.showLinkImg = false;
+    //使用 base64 保存图片
+    editor.customConfig.uploadImgShowBase64 = true;
+    editor.create();
+            
+	layui.use(['element','form','laydate','layer'], function() {
+		var $ = layui.jquery,
+		 form = layui.form,
+		 laydate = layui.laydate,
+		 layer = layui.layer,
+		 element = layui.element;
+	    
+	    //日期范围
+		  laydate.render({
+		    elem: '#bowen_date'
+		    ,range: true
+		  });
+		  
+		  
+		  //设置“添加标签”按钮的tip
+		  $('#addTag').on('mouseenter', function(){
+			  var that = this;
+			  layer.tips('添加标签', that,{
+			  tips: 2,time:500
+			 }); //在元素的事件回调体中，follow直接赋予this即可
+		  });
+		  
+		  
+		  //点击“添加标签”按钮
+		  $("#addTag").on('click',function(){
+		  	
+		  	    var tag_lis = $("#tag-ul").children('li');
+		  	    if(tag_lis.length >= 5){
+		  	    	
+		  	    	 layer.msg('标签最多不能超过5个',{
+		  	    	 	time:2000,
+		  	    	 	anim: 6,
+		  	    	 });
+		  	    	 return;
+		  	    }
+		  	    else{
+		  	    	var tag_html =  "<li><input type='text' class='self-li-text' /><i class='layui-icon layui-icon-close self-icon-delete' onclick='deleteTag(this)'></i></li>";
+		  	    	$("#tag-ul").append(tag_html);		  	    	
+		  	    }
+		  	   
+		  });
+		  
+		  //点击“发布博文”按钮
+		  $("#btn_public_bowen").on('click',function(){
+		  	  
+		  	  //获取文章纯文本内容
+		  	  var bwContent_text = editor.txt.text();
+		  	  var bwContent_html = editor.txt.html();
+		  	  //editor.txt.html(bwContent_html_tset);
+		  	  //检查是否有某个字段为空
+		  	  //checkIsExistNull(bwContent);		  	
+		  });
+	});  //layui.use
+	
+	function checkIsExistNull(bwContent){		
+		layui.use('layer',function(){
+			var $ = layui.jquery,
+			layer = layui.layer;
+			//debugger;
+			if($("#add_article_title").val().length == 0){
+				
+				layer.msg('标题不能为空',{
+		  	    	 	time:1000,
+		  	    	 	anim: 6,
+		  	    	 });
+		  	    return true;
+			}
+			else if(bwContent.length == 0){
+				
+				layer.msg('博文内容不能为空',{
+		  	    	 	time:1000,
+		  	    	 	anim: 6,
+		  	    	 });
+		  	    return true;
+			}
+			
+			
+			
+		});
+		
+	}
+					
+</script>
+
+</body>
+</html>
