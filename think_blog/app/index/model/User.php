@@ -6,7 +6,7 @@ use traits\model\SoftDelete;
 
 class User extends Model{
 	
-	//使用软删除
+	 //使用软删除
 	 use SoftDelete;
 	 
 	 // 开启自动写入时间戳字段
