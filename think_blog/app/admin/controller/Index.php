@@ -20,6 +20,9 @@ class Index extends Controller{
 	public function test_form(){
 		return $this->fetch();
 	}
+	public function add_bw(){
+		return $this->fetch();
+	}
 }
 
 ?>

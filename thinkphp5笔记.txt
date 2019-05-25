@@ -5630,7 +5630,7 @@ insert into imooc_user values (2,"imooc_arvin",'123456','1095654362@qq.com');
 
                               // ->where("id",">","10")  //添加筛选条件
 
-                               ->field("username,id,group")  //只查看"username" 和 "id" 字段
+                                 ->field("username,id,group")  //只查看"username" 和 "id" 字段
 
                               // ->order("id DESC")      // 根据某个字段进行排序，这里表根据id字段进行降序，默认升序
 
@@ -5840,7 +5840,7 @@ group('字段')，他会根据字段的值为分类标准进行分类，比如字段值为1的单独查出来，字
                       $res = User::get(1);
                       dump($res);    //这里直接打印的是一个对象 ，数据可能会比较多且乱，可以先使用toArray()方法
 
-                      
+
                       $res = User::get(1);
                       $res = $res->toArray();  
                       dump($res);   //获取筛选的所有数据，以数组的形式打印
@@ -7380,35 +7380,35 @@ js定义模块：https://www.jianshu.com/p/5226bd9644b6
 
 
 
+tab_bowen
+
+
+
+add_unlock
+add_lock
 
 
 
 
 
+add_bw_type
+
+add_bw_type2
 
 
 
 
 
+search_bw_type
+
+bowen_date
+
+search_bw_title  
 
 
+search_bw_starttime
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+search_bw_endtime
 
 
 

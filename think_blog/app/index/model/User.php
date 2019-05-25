@@ -27,7 +27,7 @@ class User extends Model{
 		return $int_sex[$val];
 	}
 	
-	//user_password
+	//user_password    对用户设置的密码进行加密，再保存到数据库中
 	public function setUserPasswordAttr($val){
 		return md5($val);
 	}

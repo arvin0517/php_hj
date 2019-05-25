@@ -26,6 +26,10 @@ class Article extends Model{
 	 	return date("Y-m-d ", $val);
 	 }
 	 
+	 //将博文状态的 0 和 1 转为 ‘已发布’ 和 ‘草稿’   //article_status
+	 public function getArticleStatusAttr($val){	 	
+	    return ($val==1)? '已发布' : '草稿';
+	 }
 	 
 }
 
