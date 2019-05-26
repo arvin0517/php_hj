@@ -8,6 +8,33 @@ class Action{
 	public function ad_upload(){		
 	}
 	
+	//根据博文id 获取一条博文记录
+	public function getOneBW(Request $request){
+		$article_id = $request->param('article_id');
+		$edit_bw = Article::get($article_id);
+		if($edit_bw){
+			Config::set('default_return_type' , 'json');  //动态设置返回数据的类型为 json格式。
+		    return $edit_bw;
+		}
+		else{
+			return null;
+		}
+	}
+	
+	//删除博文  deleteBowen
+	public function deleteBowen(Request $request){
+		$article_id = $request->param('article_id');
+		$del_bw = Article::get($article_id);
+		$res = $del_bw->delete();
+		if($res){
+			return true;
+		}else{
+			return false;
+		}
+			
+	}
+	
+	
 	//查询当前页的博文列表或者搜索条件后的博文列表   前端请求的数据： page=1&limit=10
 	public function queryAllBowen(Request $request){	
 		

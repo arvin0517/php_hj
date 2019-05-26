@@ -209,7 +209,6 @@
 
 				//点击“发布博文”按钮
 				$("#btn_public_bowen").on('click', function() {
-
 					//获取文章纯文本内容
 					var bwContent_text = editor.txt.text();
 					var bwContent_html = editor.txt.html();
@@ -223,11 +222,9 @@
                     //var test = checkIsNull(bwContent_text, add_bw_type, add_bw_type2);
                     //debugger;
 					//检查是否有某个字段为空
-					if(!checkIsNull(bwContent_text, add_bw_type, add_bw_type2)) {
-						
+					if(!checkIsNull(bwContent_text, add_bw_type, add_bw_type2)) {						
 						saveBowen(1, bwContent_html, add_bw_type, add_bw_type2, tags);
 					};
-
 					//editor.txt.html(bwContent_html_tset);
 				});
 
@@ -248,8 +245,47 @@
 						//debugger;
 						saveBowen(0, bwContent_html, add_bw_type, add_bw_type2, tags);
 					};
-
 				});
+				
+				
+				//当是点击‘编辑’按钮跳转过来的时候,获取需要重新编辑的博文的id，给表单组件渲染值
+				var edit_bw_id = window.location.href.split("=")[1]
+				if(edit_bw_id){  					
+					//alert(edit_bw_id);
+					$.ajax({
+							url: '/think_blog/public/admin/Action/getOneBW',
+							//提交类型
+							type: 'POST',
+							//提交数据给后台
+							data: {'article_id':edit_bw_id},
+							//返回的数据类型
+							dataType: 'json',
+							//成功是调用的方法
+							success: function(data) {
+								if(data){
+								   //debugger;
+								   //console.log(data);   article_tags
+								   $("#add_article_title").val(data.article_title);
+								   editor.txt.html(data.article_content);
+								   var bw_tags = data.article_tags.split(';');							   
+								   $.each(bw_tags, function(index,item) {
+								   	   //debugger;
+								   	   if(item){
+								   	   	       var tag_html = "<li><input type='text' class='self-li-text' value='"+ item +"' /><i class='layui-icon layui-icon-close self-icon-delete' onclick='deleteTag(this)'></i></li>";
+						                       $("#tag-ul").append(tag_html);
+								   	    }							   	   
+								   });								   
+								   $("#add_bw_type").val(data.article_type1);
+								   $("#add_bw_type2").val(data.article_type2);
+								   add_bw_type = data.article_type1;
+								   add_bw_type2 = data.article_type2;
+								   form.render();
+								   bw_id = data.article_id;
+								}
+							}
+						});	
+				    }
+				
 			}); //layui.use
 
             //当博文保存成功后，锁住博文，设置不可编辑
@@ -353,7 +389,6 @@
 
 			//检查是否有某个字段为空
 			function checkIsNull(bwContent_text, add_bw_type, add_bw_type2) {
-
                 var check_temp = 0;
 				layui.use('layer', function() {
 					var $ = layui.jquery,
